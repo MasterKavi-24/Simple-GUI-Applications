@@ -10,8 +10,8 @@
 import pygame
 from pygame import mixer
 #import tkfilebrowser
-from random import choice
-from random import shuffle
+#from random import choice
+#from random import shuffle
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
@@ -98,12 +98,6 @@ def play_by_event(event):
     except pygame.error:
         pass
     play()
-#-----------------------------------------------------------------------------------------------------------------------------------------------#
-def next_():
-    pass
-#-----------------------------------------------------------------------------------------------------------------------------------------------#
-def previous():
-    pass
 #-----------------------------------------------------------------------------------------------------------------------------------------------#
 def vol_down():
     mixer.music.set_volume(mixer.music.get_volume() - 0.1)
