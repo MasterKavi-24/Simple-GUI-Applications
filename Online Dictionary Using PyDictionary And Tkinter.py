@@ -3,8 +3,8 @@ import tkinter.ttk as ttk
 from tkinter import scrolledtext
 from tkinter import messagebox as msg
 
-import pyttsx3
-from PyDictionary import PyDictionary
+import pyttsx3          # pip install pyttsx2
+from PyDictionary import PyDictionary           # pip install pydictionary
 
 def internet_presence():
         import requests
@@ -33,7 +33,7 @@ def search():
                         antonym_box.insert(tk.END, k+", ")
         
                 
-def speak():
+def speak():    # Do not do anything while speak() runs....
         engine = pyttsx3.init()
         engine.setProperty('rate', 100)
         engine.say("Meaning "+meaning_box.get("1.0", tk.END))
