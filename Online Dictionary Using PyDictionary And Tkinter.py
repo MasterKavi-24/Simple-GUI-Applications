@@ -3,8 +3,8 @@ import tkinter.ttk as ttk
 from tkinter import scrolledtext
 from tkinter import messagebox as msg
 
-import pyttsx3          # pip install pyttsx2
-from PyDictionary import PyDictionary           # pip install pydictionary
+import pyttsx3
+from PyDictionary import PyDictionary
 
 def internet_presence():
         import requests
@@ -17,23 +17,26 @@ def internet_presence():
         	return False
 
 def search():
-        meaning_box.delete('1.0', END)
-        synonym_box.delete('1.0', END)
-        antonym_box.delete('1.0', END)
+        meaning_box.delete('1.0', tk.END)
+        synonym_box.delete('1.0', tk.END)
+        antonym_box.delete('1.0', tk.END)
         if internet_presence() != True:
                 msg.showerror("No Internet Connection", "Please Connect To The Internet And Try Again")
         elif word.get() == "":
                 msg.showerror("Empty Field", "Please Fill The Word To Search")
         else:
-                for i in PyDictionary().meaning(word.get()).values():
-                        meaning_box.insert(tk.END, str(i)+"; ")
-                for j in PyDictionary().synonym(word.get()):
-                        synonym_box.insert(tk.END, j+", ")
-                for k in PyDictionary().antonym(word.get()):
-                        antonym_box.insert(tk.END, k+", ")
-        
+                if PyDictionary().meaning(word.get()) == None:
+                        msg.showwarning("Invalid Word", "Please Enter A Valid Word")
+                else:
+                        for i in PyDictionary().meaning(word.get()).values():
+                                meaning_box.insert(tk.END, i)
+                        for j in PyDictionary().synonym(word.get()):
+                                synonym_box.insert(tk.END, j+", ")
+                        for k in PyDictionary().antonym(word.get()):
+                                antonym_box.insert(tk.END, k+", ")
                 
-def speak():    # Do not do anything while speak() runs....
+                
+def speak():
         engine = pyttsx3.init()
         engine.setProperty('rate', 100)
         engine.say("Meaning "+meaning_box.get("1.0", tk.END))
