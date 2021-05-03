@@ -13,7 +13,7 @@ def internet_presence():
         try:
         	request = requests.get(url, timeout=timeout)
         	return True
-        except (requests.ConnectionError, requests.Timeout) as exception:
+        except (requests.ConnectionError, requests.Timeout):
         	return False
 
 def search():
@@ -37,12 +37,15 @@ def search():
                 
                 
 def speak():
-        engine = pyttsx3.init()
-        engine.setProperty('rate', 100)
-        engine.say("Meaning "+meaning_box.get("1.0", tk.END))
-        engine.say("Synonyms are "+synonym_box.get("1.0", tk.END))
-        engine.say("Antonyms are "+antonym_box.get("1.0", tk.END))
-        engine.runAndWait() 
+        if meaning_box or synonym_box or antonym_box == "":
+                msg.showwarning("No Search Results", "Search First To Get Speech Results")
+        else:
+                engine = pyttsx3.init()
+                engine.setProperty('rate', 100)
+                engine.say("Meaning "+meaning_box.get("1.0", tk.END))
+                engine.say("Synonyms are "+synonym_box.get("1.0", tk.END))
+                engine.say("Antonyms are "+antonym_box.get("1.0", tk.END))
+                engine.runAndWait() 
 
 if __name__ == "__main__":
         root = tk.Tk()
